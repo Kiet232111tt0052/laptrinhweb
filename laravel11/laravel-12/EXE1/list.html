@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách người dùng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .nav {
+            padding: 10px;
+            background: #fff;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+        }
+        .nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+            color: black;
+        }
+        .nav a:hover {
+            color: #007bff;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        .pagination {
+            margin-top: 20px;
+        }
+        .pagination a {
+            padding: 8px 12px;
+            margin: 0 5px;
+            border: 1px solid black;
+            text-decoration: none;
+            color: black;
+            background-color: #fff;
+        }
+        .pagination a.active {
+            font-weight: bold;
+            background-color: #007bff;
+            color: white;
+        }
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background: white;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html">Home</a> |
+        <a href="list.html">Danh sách</a> |
+        <a href="login.html">Đăng nhập</a> |
+        <a href="register.html">Đăng ký</a> |
+        <a href="update.html">Cập nhật</a> |
+        <a href="logout.html">Đăng xuất</a>
+    </div>
+
+    <div class="container">
+        <h2>Danh sách user</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody id="userTable">
+                <!-- Dữ liệu user sẽ được thêm bằng JavaScript -->
+            </tbody>
+        </table>
+
+        <div class="pagination" id="pagination">
+            <!-- Phân trang sẽ được tạo bằng JavaScript -->
+        </div>
+    </div>
+
+    <footer>
+        Lập trình web @01/2024
+    </footer>
+
+    <script>
+        // Danh sách người dùng giả lập
+        const users = [
+            { username: "UPVH", email: "ATJW@gmail.com" },
+            { username: "IFUK", email: "KULB@gmail.com" },
+            { username: "DZZQ", email: "ERNB@gmail.com" },
+            { username: "NJYY", email: "ROIF@gmail.com" },
+            { username: "YUMG", email: "KITN@gmail.com" },
+            { username: "WZSU", email: "CVTL@gmail.com" },
+            { username: "WXFQ", email: "MIUZ@gmail.com" },
+            { username: "XZOR", email: "YZLV@gmail.com" },
+            { username: "HGGO", email: "OYYX@gmail.com" },
+            { username: "PXZX", email: "YSML@gmail.com" }
+        ];
+
+        const rowsPerPage = 5; 
+        let currentPage = 1; 
+
+        function displayUsers(page) {
+            const start = (page - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const displayedUsers = users.slice(start, end);
+
+            const userTable = document.getElementById('userTable');
+            userTable.innerHTML = ""; 
+
+            displayedUsers.forEach((user, index) => {
+                const row = `<tr>
+                    <td>${start + index + 1}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <a href="update.html">Edit</a> | 
+                        <a href="#">View</a> | 
+                        <a href="#" onclick="deleteUser(${start + index})">Delete</a>
+                    </td>
+                </tr>`;
+                userTable.innerHTML += row;
+            });
+
+            updatePagination();
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(users.length / rowsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = "";
+
+            let prev = `<a href="#" onclick="changePage(${currentPage - 1})">Previous</a>`;
+            let next = `<a href="#" onclick="changePage(${currentPage + 1})">Next</a>`;
+
+            if (currentPage === 1) prev = `<a href="#" style="pointer-events: none; color: gray;">Previous</a>`;
+            if (currentPage === totalPages) next = `<a href="#" style="pointer-events: none; color: gray;">Next</a>`;
+
+            pagination.innerHTML += prev;
+
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.innerHTML += `<a href="#" class="${i === currentPage ? "active" : ""}" onclick="changePage(${i})">${i}</a>`;
+            }
+
+            pagination.innerHTML += next;
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(users.length / rowsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            displayUsers(currentPage);
+        }
+
+        function deleteUser(index) {
+            if (confirm("Bạn có chắc muốn xóa người dùng này không?")) {
+                users.splice(index, 1);
+                displayUsers(currentPage);
+            }
+        }
+
+        displayUsers(currentPage);
+    </script>
+</body>
+</html>

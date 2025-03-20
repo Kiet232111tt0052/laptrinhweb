@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+           
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            background: #efefef;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 0;
+                        
+        }
+
+        .nav a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .nav a:hover {
+            color: #007bff;
+        }
+
+        .nav1 {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            bottom: 0; 
+        }
+
+        #id{
+            padding-right: 30px;
+            text-decoration: none;
+        }
+        .update-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            
+            
+        }
+        .update-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .update-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 25px;
+            
+        }
+
+        .form-group label {
+            width: 30%;
+            margin-right: 10px;
+        }
+
+        .form-group input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-actions button,
+        .form-actions a {
+            width: 45%;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .form-actions button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+
+        .form-actions button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-actions a:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="login.html">Đăng nhập</a>
+        <a href="register.html">Đăng ký</a>
+    </div>
+    <div class="update-container">
+        <h2>Màn hình cập nhật</h2>
+        <form id="updateForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Nhập lại mật khẩu:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+            </div>
+
+            <div class="form-actions">
+                <a href="login.html">Đã có tài khoản?</a>
+                <button type="submit">Đăng ký</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        let username = document.getElementById('username').value.trim();
+        let password = document.getElementById('password').value;
+        let confirmPassword = document.getElementById('confirmPassword').value;
+        let email = document.getElementById('email').value.trim();
+        
+        document.querySelectorAll('.error-message').forEach(e => e.remove());
+
+        let valid = true;
+
+        function showError(input, message) {
+            let error = document.createElement('p');
+            error.classList.add('error-message');
+            error.style.color = 'red';
+            error.style.fontSize = '12px';
+            error.textContent = message;
+            input.parentNode.appendChild(error);
+        }
+
+        if (username === "") {
+            showError(document.getElementById('username'), "Tên đăng nhập không được để trống!");
+            valid = false;
+        }
+
+        if (password.length < 6) {
+            showError(document.getElementById('password'), "Mật khẩu phải có ít nhất 6 ký tự!");
+            valid = false;
+        } else if (password !== confirmPassword) {
+            showError(document.getElementById('confirmPassword'), "Mật khẩu không khớp!");
+            valid = false;
+        }
+
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            showError(document.getElementById('email'), "Email không hợp lệ!");
+            valid = false;
+        }
+
+        if (valid) {
+            alert('Cập nhật thành công!');
+        }
+    });
+
+    </script>
+
+<footer class="nav1">
+    <p>Lập trình web @01/2024</p>
+ </footer>
+</body>
+</html>

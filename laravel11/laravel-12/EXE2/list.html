@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách người dùng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            width: 100%;
+            padding: 10px;
+            background-color: #f1f1f1;
+        }
+
+        .nav a {
+            padding-right: 15px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .nav a:last-child {
+            padding-right: 0;
+        }
+
+        footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            width: 100%;
+            padding: 10px;
+            background-color: #f1f1f1;
+            margin-top: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="login.html">Đăng nhập</a>
+        <a href="register.html">Đăng ký</a>
+    </div>
+
+    <h1>Danh sách người dùng</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên đăng nhập</th>
+                <th>Email</th>
+                <th>Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>user1</td>
+                <td>user1@example.com</td>
+                <td><a href="view.html">Xem</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>user2</td>
+                <td>user2@example.com</td>
+                <td><a href="view.html">Xem</a></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <footer>
+        <p>Lập trình web @01/2024</p>
+    </footer>
+
+</body>
+</html>
