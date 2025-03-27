@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết người dùng</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        .nav {
+            padding: 10px;
+            background: #fff;
+            border: 1px solid black;
+            display: flex;
+            justify-content: center;
+        }
+        .nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            font-weight: bold;
+            color: black;
+        }
+        .nav1 {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        .nav a:hover {
+            color: #007bff;
+        }
+        .container {
+            width: 50%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+        .container h2 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        .info label {
+            font-weight: bold;
+        }
+        .btn-edit {
+            display: block;
+            width: 100px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .btn-edit:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background: white;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html">Home</a> |
+        <a href="logout.html">Đăng xuất</a>
+    </div>
+
+    <div class="container">
+        <h2>Màn hình chi tiết</h2>
+        <div class="info">
+            <label>Username:</label> <span id="username">test1</span>
+        </div>
+        <div class="info">
+            <label>Email:</label> <span id="email">test1@gmail.com</span>
+        </div>
+        <a href="register.html" class="btn-edit" id="editBtn">Chỉnh sửa</a>
+    </div>
+
+    <footer class="nav1">
+        Lập trình web @01/2024
+    </footer>
+
+    <!-- <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        document.getElementById("username").textContent = urlParams.get("username");
+        document.getElementById("email").textContent = urlParams.get("email");
+
+        function goBack() {
+            window.history.back();
+        }
+    </script> -->
+</body>
+</html>
+

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cập nhật thông tin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .nav, .nav1 {
+            position: fixed;
+            width: 100%;
+            text-align: center;
+            background: #efefef;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .nav {
+            top: 0;
+        }
+        .nav1 {
+            bottom: 0;
+            background: #fff;
+        }
+        .nav a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            color: #007bff;
+        }
+        .update-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            margin-top: 20vh; /* Cách header 20% chiều cao màn hình */
+            margin-bottom: 20vh; /* Cách footer 20% chiều cao màn hình */
+        }
+        .update-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            width: 30%;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .form-actions button, .form-actions a {
+            width: 45%;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            margin-top: 20px;
+        }
+        .form-actions button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        .form-actions button:hover {
+            background-color: #0056b3;
+        }
+        .form-actions a:hover {
+            background-color: #e0e0e0;
+        }
+        .error-message {
+            margin-top: 5px;
+            margin-bottom: 0;
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html">Home</a>|
+        <a href="login.html">Đăng nhập</a>|
+        <a href="register.html">Đăng ký</a>
+    </div>
+    <div class="update-container">
+        <h2>Cập nhật thông tin</h2>
+        <form id="updateForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Tên đăng nhập" value="XXXX" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Email" value=" XXXX" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu mới:</label>
+                <input type="password" id="password" name="password" placeholder="Mật khẩu mới" value="XXX" required>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword">Xác nhận mật khẩu:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu mới" value="XXX">
+            </div>
+            <div class="form-actions">
+                <a href="login.html">Đã có tài khoản?</a>
+                <button type="submit">Cập nhật</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        document.getElementById('updateForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+             let password = document.getElementById('password').value;
+            let confirmPassword = document.getElementById('confirmPassword').value;
+            let email = document.getElementById('email').value.trim();
+             
+            document.querySelectorAll('.error-message').forEach(e => e.remove());
+
+            let valid = true;
+
+            function showError(input, message) {
+                let error = document.createElement('p');
+                error.classList.add('error-message');
+                error.style.color = 'red';
+                error.style.fontSize = '12px';
+                error.textContent = message;
+                input.parentNode.appendChild(error);
+            }
+
+
+            if (password !== "" && password.length < 6) {
+                showError(document.getElementById('password'), "Mật khẩu mới phải có ít nhất 6 ký tự!");
+                valid = false;
+            } else if (password !== "" && password !== confirmPassword) {
+                showError(document.getElementById('confirmPassword'), "Mật khẩu xác nhận không khớp!");
+                valid = false;
+            }
+
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                showError(document.getElementById('email'), "Email không hợp lệ!");
+                valid = false;
+            }
+            
+            if (valid) {
+                alert('Cập nhật thông tin thành công!');
+             }
+        });
+    </script>
+    <footer class="nav1">
+        <p>Lập trình web @01/2024</p>
+    </footer>
+</body>
+</html>

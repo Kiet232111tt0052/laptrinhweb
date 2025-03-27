@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Màn hình đăng nhập</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            background: #efefef;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .nav a:hover {
+            color: #007bff;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            max-width: 90%;
+            text-align: center;
+            margin: 60px auto 40px;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    width: 30%;
+    text-align: right;
+    padding-right: 10px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+        .remember-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            justify-content: flex-start;
+        }
+
+        .remember-row input[type="checkbox"] {
+            margin-right: 8px;
+            width: auto;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .form-actions a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .form-actions a:hover {
+            text-decoration: underline;
+        }
+
+        .form-actions button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .form-actions button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 15px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background: #fff;
+            padding: 10px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 20px;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .form-actions button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html">Trang chủ</a>
+        <a href="login.html">Đăng nhập</a>
+        <a href="register.html">Đăng ký</a>
+    </div>
+    
+    <div class="login-container">
+        <h2>Đăng nhập</h2>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Tên đăng nhập" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+            </div>
+            
+            <div class="remember-row">
+                <input type="checkbox" name="check" id="check">
+                <label for="check">Ghi nhớ đăng nhập</label>
+            </div>
+            
+            <div id="errorMsg" class="error-message"></div>
+            
+            <div class="form-actions">
+                <a href="forgot-password.html">Quên mật khẩu?</a>
+                <button type="submit">Đăng nhập</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let username = document.getElementById('username').value.trim();
+            let password = document.getElementById('password').value;
+            let errorMsg = document.getElementById('errorMsg');
+            let rememberMe = document.getElementById('check').checked;
+
+            // Kiểm tra tài khoản có sẵn trong code
+            if (username === 'admin' && password === '123456') {
+                // Lưu trạng thái "ghi nhớ đăng nhập" nếu được chọn
+                if (rememberMe) {
+                    localStorage.setItem('rememberedUser', username);
+                } else {
+                    localStorage.removeItem('rememberedUser');
+                }
+                
+                alert('Đăng nhập thành công!');
+                window.location.href = 'view.html';
+            } 
+            // Kiểm tra tài khoản đã đăng ký trước đó (nếu có)
+            else if (localStorage.getItem('registeredUsername') === username && 
+                     localStorage.getItem('registeredPassword') === password) {
+                
+                if (rememberMe) {
+                    localStorage.setItem('rememberedUser', username);
+                } else {
+                    localStorage.removeItem('rememberedUser');
+                }
+                
+                alert('Đăng nhập thành công!');
+                window.location.href = 'view.html';
+            } 
+            else {
+                errorMsg.textContent = 'Tên đăng nhập hoặc mật khẩu không đúng!';
+            }
+        });
+
+        // Tự động điền username nếu đã lưu "ghi nhớ đăng nhập"
+        window.addEventListener('load', function() {
+            const rememberedUser = localStorage.getItem('rememberedUser');
+            if (rememberedUser) {
+                document.getElementById('username').value = rememberedUser;
+                document.getElementById('check').checked = true;
+            }
+        });
+    </script>
+
+    <footer>
+       <p>Lập trình web @2024</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý User </title>
+    <style>
+        .nav {
+            position: fixed;
+            width: 100%;
+            height: 35px;
+            text-align: center;
+            padding-top: 20px;
+            background: #efefef;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            top: 0;
+         
+        }
+
+        .nav1 {
+            position: fixed;
+            width: 100%;
+          
+            text-align: center;
+            background: #b6b6b6;
+            bottom: 0;
+        }
+        .nav {
+            top: 0;
+        }
+        .nav1 {
+            bottom: 0;
+            background: #fff;
+        }
+        .nav a {
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .nav a:hover {
+            color: #007bff;
+        }
+
+
+        h2 {
+            text-align: center;
+            margin-top: 100px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .actions button {
+            margin-right: 5px;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            padding: 5px 10px;
+            margin: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="index.html">Home</a> |
+         <a href="register.html"><b>Đăng Xuất</b></a>
+    </div>
+
+    <h2>Danh sách User</h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody id="userTableBody">
+        </tbody>
+    </table>
+    
+    <div class="pagination">
+        <button onclick="prevPage()">Previous</button>
+        <span id="pageNumbers"></span>
+        <button onclick="nextPage()">Next</button>
+    </div>
+    
+    <script>
+        let users = [
+            { id: 1, username: "UPVH", email: "ATJW@gmail.com" },
+            { id: 2, username: "IFUK", email: "KULB@gmail.com" },
+            { id: 3, username: "DZZQ", email: "DZZQ@gmail.com" },
+            { id: 4, username: "NJYY", email: "ROIF@gmail.com" },
+            { id: 5, username: "YUMG", email: "KITN@gmail.com" },
+            { id: 6, username: "WZSU", email: "CVTL@gmail.com" },
+            { id: 7, username: "WXFQ", email: "MIUZ@gmail.com" },
+            { id: 8, username: "XZOR", email: "YZLV@gmail.com" },
+            { id: 9, username: "HGGO", email: "OYYX@gmail.com" },
+            { id: 10, username: "PXZX", email: "YSML@gmail.com" }
+        ];
+        let currentPage = 1;
+        const rowsPerPage = 5;
+
+        function renderTable() {
+            const tableBody = document.getElementById("userTableBody");
+            tableBody.innerHTML = "";
+            let start = (currentPage - 1) * rowsPerPage;
+            let end = start + rowsPerPage;
+            let paginatedUsers = users.slice(start, end);
+            
+            paginatedUsers.forEach((user, index) => {
+                const row = `<tr>
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td class="actions">
+                        <button onclick="viewUser(${start + index})">Xem</button>
+                        <button onclick="editUser(${start + index})">Sửa</button>
+                        <button onclick="deleteUser(${start + index})">Xóa</button>
+                    </td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            });
+            renderPagination();
+        }
+
+        function renderPagination() {
+            const pageNumbers = document.getElementById("pageNumbers");
+            pageNumbers.innerHTML = "";
+            let totalPages = Math.ceil(users.length / rowsPerPage);
+            for (let i = 1; i <= totalPages; i++) {
+                pageNumbers.innerHTML += `<button onclick="goToPage(${i})">${i}</button>`;
+            }
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            renderTable();
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        }
+
+        function nextPage() {
+            if (currentPage < Math.ceil(users.length / rowsPerPage)) {
+                currentPage++;
+                renderTable();
+            }
+        }
+
+        function editUser(index) {
+            const username = prompt("Nhập Username mới:", users[index].username);
+            const email = prompt("Nhập Email mới:", users[index].email);
+            if (username && email) {
+                users[index].username = username;
+                users[index].email = email;
+                renderTable();
+            }
+        }
+
+        function deleteUser(index) {
+            if (confirm("Bạn có chắc muốn xóa người dùng này?")) {
+                users.splice(index, 1);
+                if ((currentPage - 1) * rowsPerPage >= users.length) {
+                    currentPage = Math.max(1, Math.ceil(users.length / rowsPerPage));
+                }
+                renderTable();
+            }
+        }
+
+        function viewUser(index) {
+            const user = users[index];
+            window.location.href = `view.html?username=${user.username}&email=${user.email}`;
+        }
+
+        renderTable();
+    </script>
+    <footer class="nav1">
+        <p>Lập trình web @01/2024</p>
+    </footer>
+</body>
+</html>
