@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PHPUnit">
+    <option name="directories">
+      <list>
+        <option value="$PROJECT_DIR$/laravel-12.x/laravel12-crud/tests/Unit" />
+        <option value="$PROJECT_DIR$/laravel-12.x/laravel12-crud/tests/Feature" />
+        <option value="$PROJECT_DIR$/project-crud-user/example-app/tests/Unit" />
+        <option value="$PROJECT_DIR$/project-crud-user/example-app/tests/Feature" />
+        <option value="$PROJECT_DIR$/laravel-12.x/tests/Unit" />
+        <option value="$PROJECT_DIR$/laravel-12.x/tests/Feature" />
+        <option value="$PROJECT_DIR$/project-crud-user/tests/Unit" />
+        <option value="$PROJECT_DIR$/project-crud-user/tests/Feature" />
+      </list>
+    </option>
+  </component>
+</project>
